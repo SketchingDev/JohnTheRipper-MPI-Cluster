@@ -1,0 +1,36 @@
+---
+
+- name: Install Dependencies
+  apt:
+    name: "{{item}}"
+    state: present
+    update_cache: yes
+  with_items:
+    # Required
+    - build-essential
+    - libssl-dev
+    - git
+    # Recommended (extra formats and performance)
+    - yasm
+    - libgmp-dev
+    - libpcap-dev
+    - pkg-config
+    - libbz2-dev
+    # MPI support
+    - libopenmpi-dev
+    - openmpi-bin
+
+- name: Clone repository
+  git:
+    repo: "{{ johntheripper_repo }}"
+    dest: "{{ johntheripper_dest }}"
+    version: "{{ johntheripper_version }}"
+    update: no
+  register: gitclone
+
+- name: Build source
+  shell: ./configure --enable-mpi && make -sj4
+  args:
+    chdir: "{{ johntheripper_dest }}/src"
+  notify: Test build
+  when: gitclone.changed

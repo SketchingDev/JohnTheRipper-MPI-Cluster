@@ -6,6 +6,8 @@
     - name: Install Ansible Galaxy dependencies
       local_action: command ansible-galaxy install geerlingguy.nfs --roles-path ./roles
 
+# Setup MPI
+
 - hosts: all
   become: yes
   roles:
@@ -30,3 +32,18 @@
     mpi_tutorial_repo_dest: "{{ mpi_data }}/mpitutorial"
   tasks:
     - include: test-mpi.yml
+
+# Setup JohnTheRipper
+
+- hosts: master
+  become: yes
+  vars:
+    johntheripper_dest: "{{ mpi_data }}/JohnTheRipper"
+  roles:
+      - john_the_ripper
+  tasks:
+      - file:
+          path: "{{ johntheripper_dest }}"
+          state: directory
+          owner: "{{ mpi_user }}"
+          group: "{{ mpi_user }}"

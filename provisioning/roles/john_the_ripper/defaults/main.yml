@@ -1,0 +1,6 @@
+---
+
+johntheripper_repo: 'https://github.com/magnumripper/JohnTheRipper.git'
+johntheripper_version: bleeding-jumbo
+
+johntheripper_dest: /opt/JohnTheRipper

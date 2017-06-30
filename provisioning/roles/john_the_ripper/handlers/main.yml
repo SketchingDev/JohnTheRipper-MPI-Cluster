@@ -1,0 +1,6 @@
+---
+
+- name: Test build
+  shell: "{{ johntheripper_dest }}/run/john --test=0"
+  register: result
+  failed_when: "'FAIL' in result.stdout"
