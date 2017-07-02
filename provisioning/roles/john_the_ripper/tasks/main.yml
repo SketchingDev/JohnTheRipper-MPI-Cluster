@@ -34,3 +34,16 @@
     chdir: "{{ johntheripper_dest }}/src"
   notify: Test build
   when: gitclone.changed
+
+- name: Set directory permissions
+  file:
+    path: "{{ johntheripper_dest }}"
+    state: directory
+    owner: "{{ johntheripper_owner }}"
+    group: "{{ johntheripper_owner }}"
+
+- name: Test JtR with MPI
+  shell: "su mpiuser -c 'mpiexec -np 1 --host {{ item }} {{ johntheripper_dest }}/run/john --test=0'"
+  with_items: "{{ groups['slaves'] }}"
+  tags:
+    - jtr_mpi_test

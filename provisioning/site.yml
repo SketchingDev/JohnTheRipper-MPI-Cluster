@@ -39,11 +39,6 @@
   become: yes
   vars:
     johntheripper_dest: "{{ mpi_data }}/JohnTheRipper"
+    johntheripper_owner: "{{ mpi_user }}"
   roles:
       - john_the_ripper
-  tasks:
-      - file:
-          path: "{{ johntheripper_dest }}"
-          state: directory
-          owner: "{{ mpi_user }}"
-          group: "{{ mpi_user }}"

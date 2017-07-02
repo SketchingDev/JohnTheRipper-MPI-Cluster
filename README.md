@@ -2,9 +2,9 @@
 
 Ansible project to automatically deploy a [John The Ripper](http://www.openwall.com/john/) CPU-based password cracking cluster on APT-based hosts - built on top of my [Ansible MPI project](https://github.com/FlyingTopHat/Ansible-MPI-Cluster).
 
-*I should caveat the above by saying that I've only tested the scripts against Ubuntu v14.04. If you discover any problems using the playbook be sure to issue a pull-request.*
-
 ![Bash terminal showing master and slave nodes running JtR](https://pbs.twimg.com/media/DDkeuIFXkAElI0t.png:large)
+
+*I should caveat the above by saying that I've only tested the scripts against Ubuntu v14.04. If you discover any problems using the playbook be sure to issue a pull-request.*
 
 ## Setup
 
@@ -40,6 +40,8 @@ $ ssh mpiuser@master 'mpiexec \
     -hostfile /etc/mpi_hosts \
     /srv/mpi_data/JohnTheRipper/run/john /srv/mpi_data/mary_hashes'
 ```
+
+*Don't forget to adjust the number of available processors on each host in the [hostfile](https://www.open-mpi.org/faq/?category=running#mpirun-hostfile) `/etc/mpi_hosts`*
 
 ## Development
 
